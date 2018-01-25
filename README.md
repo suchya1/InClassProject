@@ -1,1 +1,5 @@
-# InClassProject
+## InClassProject
+### About Me
+1. My computer experience includes...
+
+2. I plan to use this class material in the future to... 
