@@ -5,7 +5,7 @@
     <div class="col-md-4">
         
         <div class="card" >
-            <div class="card-header">My Quotes</div>
+            <div class="card-header">My Quotes ({{Me.Name}})</div>
             <ul class="list-group list-group-flush my-quotes">
                 <li *ngFor="let quote of Me.MyQuotes" 
                     (click)="submitQuote($event, quote)"
@@ -26,7 +26,7 @@
                         <span *ngIf="!IsEveryoneDone() || (!IAmTheDealer() && !ChosenQuote())" class="badge badge-light">hidden</span>
                         <span *ngIf="ChosenQuote()" class="badge badge-primary">{{quote.PlayerId}}</span>
                         <button *ngIf="IsEveryoneDone() && IAmTheDealer() && !ChosenQuote()"
-                                (click)="quote.Chosen=true"
+                                (click)="chooseQuote($event,quote)"
                                 class="btn btn-sm btn-primary">
                                 Choose
                         </button>
