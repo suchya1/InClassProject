@@ -130,8 +130,10 @@ function Game() {
         this.Picture=null;
         this.GetQuotes = (playerId) => {
             if(this.Players.some(x=>x.PlayerId == playerId)){
-
+                
             }else{
+                if(this.DealerId==null)
+                    this.DealerId=playerId;
                 this.Players.push({ PlayerId: playerId, Name: playerId});
                return QuotesStack.slice(iCurrentQuote, iCurrentQuote += 7); //deal 7 cards
             }
