@@ -26,13 +26,16 @@ export class GameComponent implements OnInit {
   }
 
   flipPicture(e: MouseEvent){
-    this.http.post(this._api+"/picture",{})
+    if(this.IAmTheDealer() && this.Model.PlayedQuotes.length==0)
+    {
+      this.http.post(this._api+"/picture",{})
           .subscribe();
+    }
   }
 
   submitQuote(e:MouseEvent, text:string){
     e.preventDefault();
-    
+    if(this.IAmTheDealer()!=true){
     if(this.MyPlayedQuote()) return;
 
     this.http.post(this._api+"/quotes",{Text:text, PlayerId:this.Me.Name})
@@ -41,13 +44,20 @@ export class GameComponent implements OnInit {
         this.Me.MyQuotes.splice(this.Me.MyQuotes.indexOf(text),1);
       }
     });
-    
   }
-
+  }
+  
   login(name: string){
     this.http.get(this._api+"/quotes", {params: {playerId: name}})
     .subscribe(data=>this.Me={Name: name, MyQuotes: data.json()})
   }
+  
+  chooseQuote(e:MouseEvent,q:Quote){
+      e.preventDefault();
+      this.http.post(this._api+"/quote",{Text:q.Text})
+    .subscribe();
+  }
+  
 
   MyPlayedQuote=()=> this.Model.PlayedQuotes.find(x => x.PlayerId==this.Me.Name);
   ChosenQuote=()=>this.Model.PlayedQuotes.find(x=>x.Chosen);
